@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Cucumber.js",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/.bin/cucumber-js",
+      "cwd": "${workspaceFolder}",
+      "args": [
+        "--require-module ts-node/register",
+        "--require ${workspaceFolder}/step_definitions/*steps.ts ${workspaceFolder}/features/*.feature ${workspaceFolder}/pages/*.ts"
+      ]
+      // "protocol": "inspector"
+    }
+  ]
+}
