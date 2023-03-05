@@ -2,6 +2,7 @@ import { When, Before, After, setDefaultTimeout, Then, Status } from '@cucumber/
 import { chromium, Page } from 'playwright';
 import BasePage from '../pages/common-page';
 import { expect } from 'chai';
+import * as config from '../config.json';
 
 let browser: any;
 let page: Page;
@@ -24,7 +25,7 @@ Then('the User navigated to the {string} page', async (expectedTitle: string) =>
 });
 
 Before(async () => {
-    browser = await chromium.launch({ headless: false });
+    browser = await chromium.launch({ headless: config.browser_headles });
     page = await browser.newPage();
     basePage = new BasePage(page)
     await basePage.openMainPage();
