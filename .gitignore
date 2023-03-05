@@ -68,6 +68,7 @@ screenshots/
 #reports
 reports/*.html
 reports/*.json
+cucumber_report.*
 
 traces/
 

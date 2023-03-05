@@ -4,7 +4,8 @@
   "description": "Demo project for Playwright and Cucumber",
   "main": "index.js",
   "scripts": {
-    "test": "npx cucumber-js -p test_runner --tags @demo"
+    "test": "npx cucumber-js -p test_runner --tags @demo",
+    "posttest": "node generate_report.js"
   },
   "keywords": [],
   "author": "ilya.skapchuk",
@@ -17,6 +18,7 @@
     "@types/pixelmatch": "^5.2.4",
     "@types/pngjs": "^6.0.1",
     "chai": "^4.3.7",
+    "cucumber-html-reporter": "^5.5.0",
     "pixelmatch": "5.3.0",
     "playwright": "^1.31.2",
     "pngjs": "7.0.0",
