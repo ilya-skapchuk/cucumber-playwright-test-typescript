@@ -1,8 +1,15 @@
 {
-  "login": "test123a",
-  "password": "test123a1",
+  "login": "test_user123",
+  "password": "Password_1",
   "baseUrl": "https://i.ua",
-  "email": "test123a@i.ua",
-  "browser_headles": true,
-  "png_comparision_threshold": 0.1
+  "email": "test_user123@i.ua",
+
+  "png_comparision_threshold": 0.1,
+  "cucumber_default_timeout_ms": 10000,
+  "take_screenshots_on_failure": true,
+
+  "browser": {
+    "name": "chromium",
+    "headless": true
+  }
 }
