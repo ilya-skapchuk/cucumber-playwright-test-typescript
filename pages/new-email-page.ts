@@ -1,6 +1,7 @@
 import BasePage from './common-page';
 import { Locator, Page, ElementHandle } from 'playwright';
 import { v4 as uuidv4 } from 'uuid';
+import * as config from '../config.json';
 
 export default class NewEmailPage extends BasePage {
 
@@ -10,15 +11,15 @@ export default class NewEmailPage extends BasePage {
     private readonly SUBJECT_INPUT_FIELD_SELECTOR: string = "//input[@name='subject']";
     private readonly MAIN_TEXTAREA_SELECTOR: string = "//textarea[@id='text']";
     private readonly SEND_BUTTONS_SELECTOR: string = "//input[@name='send' and @value='Надіслати']";
+    private readonly EMAIL_TEXT: string = "ILLIA SKAPCHUK Playwright";
 
     constructor(page: Page) {
         super(page);
     }
 
     async fillNewEmailFields() {
-        const ToAddress = 'test123a@i.ua';//TODO: property
+        const ToAddress = config.email;
         const uniqueSubject: string = uuidv4();
-        const emailText = "ILLIA SKAPCHUK Playwright"
 
         const toAddressInputFieldLocator = await this.getToAddresInputFieldLocator();
         await toAddressInputFieldLocator.fill(ToAddress);
@@ -27,13 +28,19 @@ export default class NewEmailPage extends BasePage {
         await subjectInputFieldLocator.fill(uniqueSubject);
 
         const mainTextAreaLocator = await this.getMainTextAreaLocator();
-        await mainTextAreaLocator.fill(emailText);
+        await mainTextAreaLocator.fill(this.EMAIL_TEXT);
     }
 
     async clickSendButton() {
         const sendButtonsLocators = await this.getSendButtonsLocators();
         const sendButtonLocator = sendButtonsLocators[0];
-        await sendButtonLocator.click();
+
+        const isButtonEnabled = await sendButtonLocator.isEnabled();
+        if (isButtonEnabled) {
+            await sendButtonLocator.click();
+        } else {
+            throw new Error('Send button is disabled and cannot be clicked!');
+        }
     }
 
     async getToAddresLabelLocator(): Promise<Locator> {

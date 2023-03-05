@@ -1,0 +1,7 @@
+{
+  "login": "test123a",
+  "password": "test123a1",
+  "baseUrl": "https://i.ua",
+  "email": "test123a@i.ua",
+  "png_comparision_threshold": 0.1
+}

@@ -1,4 +1,4 @@
-import { When, Before, After, setDefaultTimeout, Then } from '@cucumber/cucumber';
+import { When, Before, After, setDefaultTimeout, Then, Status } from '@cucumber/cucumber';
 import { chromium, Page } from 'playwright';
 import BasePage from '../pages/common-page';
 import { expect } from 'chai';
@@ -15,7 +15,7 @@ When('the User click on the {string} link', async (linkText: string) => {
 
 Then('the {string} page message should be present', async (pageText: string) => {
     const successMessage = await basePage.getLocatorByText(pageText);
-    expect(successMessage.isVisible());
+    expect(await successMessage.isVisible(), `The '${pageText}' text is not visible on the page!`).to.be.true;
 });
 
 Then('the User navigated to the {string} page', async (expectedTitle: string) => {
@@ -30,8 +30,14 @@ Before(async () => {
     await basePage.openMainPage();
 });
 
-After(async () => {
-    // await browser.close();
+After(async function (scenario) {
+    if (scenario && scenario.result && scenario.result.status === Status.FAILED) {
+        await this.attach(await page.screenshot({
+            path: `./screenshots/${scenario.pickle.name}.png`, fullPage: true,
+        }), 'image/png');
+    }
+    // Close the browser
+    await browser.close();
 });
 
 export { page };

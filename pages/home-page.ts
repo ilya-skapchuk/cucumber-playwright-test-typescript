@@ -1,5 +1,6 @@
 import { Page } from 'playwright';
 import BasePage from './common-page';
+import * as config from '../config.json';
 
 export default class HomePage extends BasePage {
 
@@ -12,8 +13,8 @@ export default class HomePage extends BasePage {
   }
 
   async logIn() {
-    await this.page.fill(this.LOGIN_INPUT_SELECTOR, 'test123a');//TODO: properties
-    await this.page.fill(this.PASSWORD_INPUT_SELECTOR, 'test123a1');//TODO: properties
+    await this.page.fill(this.LOGIN_INPUT_SELECTOR, config.login);
+    await this.page.fill(this.PASSWORD_INPUT_SELECTOR, config.password);
     await this.page.click(this.TITLE_SELECTOR);
   }
 }
